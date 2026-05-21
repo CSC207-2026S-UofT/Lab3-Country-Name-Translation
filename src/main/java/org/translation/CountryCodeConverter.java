@@ -82,7 +82,7 @@ public class CountryCodeConverter {
      * @return how many countries are included in this code converter.
      */
     public int getNumCountries() {
-        // ATA: used the instance variable created early to get size
+        // ATA: used the instance variable created early to get size.
         return codeToCountry.size();
     }
 }
