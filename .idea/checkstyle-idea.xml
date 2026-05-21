@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CheckStyle-IDEA" serialisationVersion="2">
+    <checkstyleVersion>13.4.1</checkstyleVersion>
+    <scanScope>JavaOnly</scanScope>
+    <copyLibs>true</copyLibs>
+    <option name="thirdPartyClasspath" />
+    <option name="activeLocationIds">
+      <option value="e13fff25-99dd-4472-9c2e-edf04e6a0df0" />
+    </option>
+    <option name="locations">
+      <list>
+        <ConfigurationLocation id="bundled-sun-checks" type="BUNDLED" scope="All" description="Sun Checks">(bundled)</ConfigurationLocation>
+        <ConfigurationLocation id="bundled-google-checks" type="BUNDLED" scope="All" description="Google Checks">(bundled)</ConfigurationLocation>
+        <ConfigurationLocation id="e13fff25-99dd-4472-9c2e-edf04e6a0df0" type="LOCAL_FILE" scope="All" description="CSC207 Checks">C:\Users\carlo\IdeaProjects\Lab3-Country-Name-Translation\mystyle.xml</ConfigurationLocation>
+      </list>
+    </option>
+  </component>
+</project>
