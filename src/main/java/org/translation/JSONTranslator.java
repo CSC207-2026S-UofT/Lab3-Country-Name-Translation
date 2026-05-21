@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.json.JSONArray;
 
@@ -15,13 +17,21 @@ import org.json.JSONArray;
  */
 public class JSONTranslator implements Translator {
 
-    // TODO Task: pick appropriate instance variables for this class
+    CountryCodeConverter c_converter;
+    LanguageCodeConverter l_converter;
+    String filename;
+    Map<String, List<String>> country_to_info;
+
 
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
      */
     public JSONTranslator() {
-        this("sample.json");
+        this.c_converter = new CountryCodeConverter();
+        this.l_converter = new LanguageCodeConverter();
+        this.filename = "sample.json";
+        this.country_to_info = new TreeMap<String, List<String>>();
+
     }
 
     /**
@@ -37,8 +47,8 @@ public class JSONTranslator implements Translator {
 
             JSONArray jsonArray = new JSONArray(jsonString);
 
-            // TODO Task: use the data in the jsonArray to populate your instance variables
-            //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
+            // Put: Country	  Alpha-2 code	Alpha-3 code	Numeric   country code INTO THE MAP USING this.filename
+
 
         }
         catch (IOException | URISyntaxException ex) {
