@@ -66,13 +66,13 @@ public class InLabByHandTranslator implements Translator {
         canMap.put("zh","加拿大");
 
         Map<String, String> spaMap = new HashMap<>();
-        spaMap.put("de","Kanada");
-        spaMap.put("en","Canada");
-        spaMap.put("zh","加拿大");
+        spaMap.put("de","Spain");
+        spaMap.put("en","Spain");
+        spaMap.put("zh","西班牙");
 
-        Map<String, Map> lanMap = new HashMap<>();
-        lanMap.put(CANADA,canMap);
-        lanMap.put(SPAIN,spaMap);
+        Map<String, Map<String, String>> lanMap = new HashMap<>();
+        lanMap.put(CANADA, canMap);
+        lanMap.put(SPAIN, spaMap);
 
         return lanMap.get(country).get(language);
         }
