@@ -4,21 +4,24 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
-// TODO CheckStyle: Wrong lexicographical order for 'java.util.HashMap' import (remove this comment once resolved)
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+// ATA: Changed the alphabetical order of imports.
 
 /**
  * This class provides the service of converting country codes to their names.
  */
 public class CountryCodeConverter {
 
-    // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
+    private final Map<String, String> codeToCountry;
+    private final Map<String, String> countryToCode;
+    // ATA: added instance variables
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
-     * in the resources folder.
+     * in the resources' folder.
      */
     public CountryCodeConverter() {
         this("country-codes.txt");
@@ -32,11 +35,21 @@ public class CountryCodeConverter {
     public CountryCodeConverter(String filename) {
 
         try {
-            List<String> lines = Files.readAllLines(Paths.get(getClass()
-                    .getClassLoader().getResource(filename).toURI()));
+            List<String> lines = Files.readAllLines(Paths.get(Objects.requireNonNull(getClass()
+                    .getClassLoader().getResource(filename)).toURI()));
+            codeToCountry = new HashMap<>();
+            countryToCode = new HashMap<>();
 
-            // TODO Task: use lines to populate the instance variable(s)
+            for (int i = 1; i < lines.size(); i++) {
+                String[] parts = lines.get(i).split("\t");
 
+                String countryName = parts[0].trim();
+                String countryCode = parts[2].trim();
+
+                codeToCountry.put(countryCode, countryName);
+                countryToCode.put(countryName, countryCode);
+                // ATA: added csv info into instance variables codeToCountry, countryToCode.
+            }
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -50,8 +63,8 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return code;
+        // ATA: added upper/lower case sensitivity.
+        return codeToCountry.get(code.toUpperCase());
     }
 
     /**
@@ -60,8 +73,8 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return country;
+        // ATA: used the instance variable created early to get country.
+        return countryToCode.get(country);
     }
 
     /**
@@ -69,7 +82,7 @@ public class CountryCodeConverter {
      * @return how many countries are included in this code converter.
      */
     public int getNumCountries() {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return 0;
+        // ATA: used the instance variable created early to get size
+        return codeToCountry.size();
     }
 }
