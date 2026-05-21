@@ -13,10 +13,10 @@ import java.util.Map;
  */
 public class CountryCodeConverter {
 
-    private HashMap<String, String> countries = new HashMap<>();
-    private HashMap<String, String> alpha2 = new HashMap<>();
-    private HashMap<String, String> alpha3 = new HashMap<>();
-    private HashMap<String, Integer> numerics = new HashMap<>();
+    private final Map<String, String> countries = new HashMap<>();
+    private final Map<String, String> alpha2 = new HashMap<>();
+    private final Map<String, String> alpha3 = new HashMap<>();
+    private final Map<String, Integer> numerics = new HashMap<>();
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
@@ -39,12 +39,11 @@ public class CountryCodeConverter {
 
             for (String line : lines) {
                 String[] values = line.split("\t");
-                if (! values[0].equals("Country"))
-                {
+                if (!values[0].equals("Country")) {
                     countries.put(values[2], values[0]);
                     alpha2.put(values[0], values[1]);
                     alpha3.put(values[0], values[2]);
-                    numerics.put(values[0], Integer.valueOf(values[3]));
+                    numerics.put(values[0], Integer.valueOf(values[2 + 1]));
                 }
             }
         }
@@ -60,7 +59,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        return countries.get(code);
+        return countries.get(code.toUpperCase());
     }
 
     /**
