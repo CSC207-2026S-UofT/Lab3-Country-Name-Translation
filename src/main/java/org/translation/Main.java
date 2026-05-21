@@ -89,7 +89,7 @@ public class Main {
     private static String promptForLanguage(Translator translator, String country) {
 
         // TODO Task: replace the line below so that we sort the languages alphabetically and print them out
-        //  one per line
+        //  one per line.
         // TODO Task: convert the language codes to the actual language names before sorting
         System.out.println(translator.getCountryLanguages(country));
 
