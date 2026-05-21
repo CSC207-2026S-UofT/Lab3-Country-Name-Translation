@@ -33,7 +33,8 @@ public class JSONTranslator implements Translator {
         // read the file to get the data to populate things...
         try {
 
-            String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource(filename).toURI()));
+            String jsonString = Files.readString(Paths.get(getClass()
+                    .getClassLoader().getResource(filename).toURI()));
 
             JSONArray jsonArray = new JSONArray(jsonString);
 
