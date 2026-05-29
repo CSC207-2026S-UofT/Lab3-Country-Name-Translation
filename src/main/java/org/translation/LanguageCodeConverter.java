@@ -4,16 +4,18 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-// import java.util.HashMap;
-// import java.util.Map;
+import java.util.Map;
 
 /**
  * This class provides the service of converting language codes to their names.
  */
 public class LanguageCodeConverter {
 
-    // TODO Task: pick appropriate instance variables to store the data necessary for this class
+    private final Map<String, String> codeToName = new HashMap<>();
+    private final Map<String, String> nameToCode = new HashMap<>();
 
     /**
      * Default constructor which will load the language codes from "language-codes.txt"
@@ -34,10 +36,34 @@ public class LanguageCodeConverter {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
-            // TODO Task: use lines to populate the instance variable
-            //           tip: you might find it convenient to create an iterator using lines.iterator()
+            Iterator<String> iterator = lines.iterator();
+            if (iterator.hasNext()) {
+                iterator.next(); // Skips the header row (e.g., "Language Name\tCode")
+            }
 
-            // TODO Checkstyle: '}' on next line should be alone on a line.
+            while (iterator.hasNext()) {
+                String line = iterator.next();
+                String[] parts = line.split("\t");
+
+                if (parts.length >= 2) {
+                    String p1 = parts[0].trim();
+                    String p2 = parts[1].trim();
+
+                    // Smart detection: determine which column is the short code vs the full name
+                    String name = p1;
+                    String code = p2;
+                    if (p1.length() < p2.length() && p1.length() <= 3) {
+                        code = p1;
+                        name = p2;
+                    }
+
+                    code = code.toLowerCase();
+
+                    // Populate both lookup directions
+                    codeToName.put(code, name);
+                    nameToCode.put(name.toLowerCase(), code);
+                }
+            }
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -51,8 +77,10 @@ public class LanguageCodeConverter {
      * @return the name of the language corresponding to the code
      */
     public String fromLanguageCode(String code) {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return code;
+        if (code == null) {
+            return null;
+        }
+        return this.codeToName.get(code.trim().toLowerCase());
     }
 
     /**
@@ -61,8 +89,10 @@ public class LanguageCodeConverter {
      * @return the 2-letter code of the language
      */
     public String fromLanguage(String language) {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return language;
+        if (language == null) {
+            return null;
+        }
+        return this.nameToCode.get(language.trim().toLowerCase());
     }
 
     /**
@@ -70,7 +100,6 @@ public class LanguageCodeConverter {
      * @return how many languages are included in this code converter.
      */
     public int getNumLanguages() {
-        // TODO Task: update this code to use your instance variable to return the correct value
-        return 0;
+        return this.nameToCode.size();
     }
 }
